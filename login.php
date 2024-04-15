@@ -21,6 +21,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             while($rows=$result->fetch_assoc()){
                 $_SESSION['username'] = $rows['username'];
                 $_SESSION['role_id'] = $rows['role_id'];
+                $_SESSION['fullname']= $rows['fullname'];
+                $_SESSION['id'] = $rows['user_id'];
                 $response = [
                   'success' => true,
                 ];
