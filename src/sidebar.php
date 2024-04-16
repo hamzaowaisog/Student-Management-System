@@ -35,13 +35,13 @@ $role_id = $_SESSION['role'];
             </button>
             <ul id="dropdown-example" class="hidden ms-3 py-2 space-y-2">
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400">Add user</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400 sidebar-link">Add user</a>
                   </li>
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400">Delete user</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400 sidebar-link">Delete user</a>
                   </li>
                   <li>
-                    <a href="#"class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400">View users</a>
+                    <a href="#"class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400 sidebar-link">View users</a>
                   </li>
             </ul>
          </li>
@@ -54,13 +54,13 @@ $role_id = $_SESSION['role'];
             </button>
             <ul id="dropdown-example1" class="hidden ms-3 py-2 space-y-2">
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400">Add Course</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400 sidebar-link">Add Course</a>
                   </li>
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400">Delete Course</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400 sidebar-link">Delete Course</a>
                   </li>
                   <li>
-                    <a href="#"class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400">Edit Course</a>
+                    <a href="#"class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400 sidebar-link">Edit Course</a>
                   </li>
             </ul>
          </li>
@@ -73,13 +73,13 @@ $role_id = $_SESSION['role'];
             </button>
             <ul id="dropdown-example2" class="hidden ms-3 py-2 space-y-2">
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400">Assign Course</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400">Assign Course</a>
                   </li>
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400">Manage Schedule</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400">Manage Schedule</a>
                   </li>
                   <li>
-                    <a href="#"class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400">Remove Course</a>
+                    <a href="#"class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400">Remove Course</a>
                   </li>
             </ul>
          </li>
@@ -92,7 +92,7 @@ $role_id = $_SESSION['role'];
             </button>
             <ul id="dropdown-example3" class="hidden ms-3 py-2 space-y-2">
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400">View Grades</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400">View Grades</a>
                   </li>
             </ul>
          </li>
@@ -105,7 +105,7 @@ $role_id = $_SESSION['role'];
             </button>
             <ul id="dropdown-example4" class="hidden ms-3 py-2 space-y-2">
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400">View Attendance</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400">View Attendance</a>
                   </li>
             </ul>
          </li>
@@ -118,7 +118,7 @@ $role_id = $_SESSION['role'];
             </button>
             <ul id="dropdown-example5" class="hidden ms-3 py-2 space-y-2">
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400">Edit Profile</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400" data-url="updateprofile.php">Edit Profile</a>
                   </li>
             </ul>
          </li>
@@ -139,7 +139,7 @@ $role_id = $_SESSION['role'];
             </button>
             <ul id="dropdown-student-1" class="hidden ms-3 py-2 space-y-2">
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400">View Grades</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400">View Grades</a>
                   </li>
             </ul>
          </li>
@@ -152,7 +152,7 @@ $role_id = $_SESSION['role'];
             </button>
             <ul id="dropdown-student-2" class="hidden ms-3 py-2 space-y-2">
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400">View Attendance</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400">View Attendance</a>
                   </li>
             </ul>
          </li>
@@ -165,7 +165,7 @@ $role_id = $_SESSION['role'];
             </button>
             <ul id="dropdown-example5" class="hidden ms-3 py-2 space-y-2">
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400">Edit Profile</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400">Edit Profile</a>
                   </li>
             </ul>
          </li>
@@ -186,7 +186,7 @@ $role_id = $_SESSION['role'];
             </button>
             <ul id="dropdown-faculty-1" class="hidden ms-3 py-2 space-y-2">
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400">Take Attendance</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400">Take Attendance</a>
                   </li>
             </ul>
          </li>
@@ -199,7 +199,7 @@ $role_id = $_SESSION['role'];
             </button>
             <ul id="dropdown-faculty-2" class="hidden ms-3 py-2 space-y-2">
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400">Grade Assignments</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400">Grade Assignments</a>
                   </li>
             </ul>
          </li>
@@ -212,7 +212,7 @@ $role_id = $_SESSION['role'];
             </button>
             <ul id="dropdown-faculty-3" class="hidden ms-3 py-2 space-y-2">
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400">View Student</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400">View Student</a>
                   </li>
             </ul>
          </li>
@@ -225,7 +225,7 @@ $role_id = $_SESSION['role'];
             </button>
             <ul id="dropdown-example5" class="hidden ms-3 py-2 space-y-2">
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400">Edit Profile</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400">Edit Profile</a>
                   </li>
             </ul>
          </li>
