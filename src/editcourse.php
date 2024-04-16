@@ -3,21 +3,22 @@ session_start();
 if(!isset($_SESSION['username'])){
     header('Location: index.php');
 }
-include("config.php");
+include_once("config.php");
 
 $records_per_page = 10;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $offset = ($page - 1) * $records_per_page;
 
-$sql = "SELECT * FROM unconfirmed_signups LIMIT $offset, $records_per_page";
+$sql = "SELECT * FROM courses LIMIT $offset, $records_per_page";
 $result = mysqli_query($link, $sql);
 
-$total_records_query = "SELECT COUNT(*) AS total_records FROM unconfirmed_signups";
+$total_records_query = "SELECT COUNT(*) AS total_records FROM courses";
 $total_records_result = mysqli_query($link, $total_records_query);
 $total_records_row = mysqli_fetch_assoc($total_records_result);
 $total_records = $total_records_row['total_records'];
 
 $total_pages = ceil($total_records / $records_per_page);
+
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +38,7 @@ $total_pages = ceil($total_records / $records_per_page);
     .container {
         width: 100%;
         margin: 20px auto;
-        overflow-x: auto;
+        overflow-x: auto; /* Enable horizontal scrolling if necessary */
     }
 
     table {
@@ -112,49 +113,25 @@ $total_pages = ceil($total_records / $records_per_page);
     <div class="container">
        <table>
         <tr>
-            <th>Full name</th>
-            <th>Email</th>
-            <th>Username</th>
-            <th>CNIC</th>
-            <th>DOB</th>
-            <th>Status</th>
-            <th>Role Assign</th>
+            <th>Course Code</th>
+            <th>Course Name</th>
+            <th>Class Room</th>
+            <th>Credit Hours</th>
             <th>Action</th>
         </tr>
         <?php
         while($row = mysqli_fetch_array($result)) {
+            echo "<form>";
             echo "<tr>";
-            echo "<td>" . $row['fullname'] . "</td>";
-            echo "<td>" . $row['email'] . "</td>";
-            echo "<td>" . $row['username'] . "</td>";
-            echo "<td>" . $row['cnic_number'] . "</td>";
-            echo "<td>" . $row['dob'] . "</td>";
-            echo "<td>" . $row['confirmation_status'] . "</td>";
-            if($row['confirmation_status'] == 'pending'){
-                echo "<td class='role-dropdown'>";
-                echo "<select name='role' id='roleSelect".$row['signup_id']."'>";
-                echo "<option value='faculty'>Faculty</option>";
-                echo "<option value='admin'>Admin</option>";
-                echo "<option value='user'>Student</option>";
-                echo "</select>";
-            } else {
-                echo "<td class='role-dropdown'>";
-                echo "<select name='role' disabled>";
-                echo "<option value='faculty'>Faculty</option>";
-                echo "<option value='admin'>Admin</option>";
-                echo "<option value='user'>Student</option>";
-                echo "</select>";
-            }
-            echo "</td>";
+            echo "<td><input type='text' id='course_code' name='course_code' value='" . $row['course_code'] . "'></td>";
+            echo "<td><input type='text' id='course_name' name='course_name' value='" . $row['course_name'] . "'></td>";
+            echo "<td><input type='text' id='class_room' name='class_room' value='" . $row['class_room'] . "'></td>";
+            echo "<td><input type='number' id='credit_hour' name='credit_hours' min='0' max='3' value='" . $row['Credit_hours'] . "'></td>";
             echo "<td class='action-links'>";
-            if($row['confirmation_status'] == 'pending'){
-                echo "<a href='#' onclick='confirmUser(".$row['signup_id'].")'>Confirm</a>";
-                echo "<a href='#' onclick='rejectUser(".$row['signup_id'].")'>Reject</a>";
-            } else {
-                echo "No Action";
-            }
+            echo "<button type='button'class='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600' onclick='EditCourse(".$row['course_id'].")'>Edit</button>";
             echo "</td>";
             echo "</tr>";
+            echo "</form>";
         }
         ?>
        </table> 
@@ -177,7 +154,7 @@ $total_pages = ceil($total_records / $records_per_page);
     <script>
         function loadPage(page) {
             $.ajax({
-                url: 'adduser.php?page='+page,
+                url: 'editcourse.php?page='+page,
                 type: 'GET',
                 data: {page: page},
                 success: function(response) {
@@ -186,26 +163,19 @@ $total_pages = ceil($total_records / $records_per_page);
             });
         }
 
-        function confirmUser(signupid){
-            var selectedRoele = document.getElementById('roleSelect'+signupid).value;
-
+        function EditCourse(course_id){
+                var course_code = $('#course_code').val();
+                var course_name = $('#course_name').val();
+                var class_room = $('#class_room').val();
+                var credit_hour = $('#credit_hour').val();
             $.ajax({
-                url:"Confirm_user.php",
+                url:"edit_course.php",
                 type:"POST",
-                data:{signup_id:signupid, role:selectedRoele},
-                success:function(response){
-                    alert(response);
-                    location.reload();
-                },
-
-            });
-
-        }
-        function rejectUser(signupid){
-            $.ajax({
-                url:"Reject_user.php",
-                type:"POST",
-                data:{signup_id:signupid},
+                data:{course_id:course_id,
+                      course_code:course_code,
+                      course_name:course_name,
+                      class_room:class_room,
+                      credit_hour:credit_hour},
                 success:function(response){
                     alert(response);
                     location.reload();
@@ -218,4 +188,3 @@ $total_pages = ceil($total_records / $records_per_page);
     </script>
 </body>
 </html>
-

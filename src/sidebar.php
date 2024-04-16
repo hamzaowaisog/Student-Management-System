@@ -54,13 +54,13 @@ $role_id = $_SESSION['role'];
             </button>
             <ul id="dropdown-example1" class="hidden ms-3 py-2 space-y-2">
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400 sidebar-link">Add Course</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400 sidebar-link" data-url="addcourse.php">Add Course</a>
                   </li>
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400 sidebar-link">Delete Course</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400 sidebar-link" data-url="deletecourse.php">Delete Course</a>
                   </li>
                   <li>
-                    <a href="#"class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400 sidebar-link">Edit Course</a>
+                    <a href="#"class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400 sidebar-link"data-url="editcourse.php">Edit Course</a>
                   </li>
             </ul>
          </li>
