@@ -1,8 +1,8 @@
 <?php
+    include_once('config.php');
     if (!isset($_SESSION['fullname'])) {
         header('Location: index.php');
     }
-    include('config.php');
     $id = $_SESSION['id'];
     $sql = "SELECT * FROM `users` WHERE `user_id` = '$id'";
     $result = mysqli_query($link, $sql);
@@ -62,7 +62,7 @@
                 margin-top: 10px;
             }
         }
-        span{
+        .span{
             font-weight: bold;
             color: #d2b01a;
         }
@@ -130,14 +130,14 @@
 <body>
     <div class="container-fluid p-0 ">
         <div class="header">
-            <div><h3>TechZone University</h3></div>
+            <div><h1 class="text-3xl">TechZone University</h1></div>
             <div class="profile-info">
                 <div class="profile-name me-5 ">
-                    <span>Hello, </span><?php echo $_SESSION['fullname']; ?>
+                    <span class="span">Hello, </span><?php echo $_SESSION['fullname']; ?>
                     <div class="dropdown-menu text-center  ">
                         <ul>
-                            <li><a href="">Profile</a></li>
-                            <li><a href="">change Password</a></li>
+                            <li><a href="profile.php">Profile</a></li>
+                            <li><a href="change_password.php">change Password</a></li>
                             <li>
                                 <form action="logout.php">
                                     <button class="m-auto btn rounded-pill text-center d-flex justify-content-center">Log Out</button></li>

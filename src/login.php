@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('config.php');
+include_once('config.php');
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $error = [];
@@ -23,7 +23,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $_SESSION['role_id'] = $rows['role_id'];
                 $_SESSION['fullname']= $rows['fullname'];
                 $_SESSION['id'] = $rows['user_id'];
-                $_SESSION['role']
+                $_SESSION['role'] = $rows['role_id'];
                 $response = [
                   'success' => true,
                 ];
