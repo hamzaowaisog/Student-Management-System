@@ -16,14 +16,14 @@ $role_id = $_SESSION['role'];
 </head>
 <body>
     
-<button data-drawer-target="sidebar-multi-level-sidebar" data-drawer-toggle="sidebar-multi-level-sidebar" aria-controls="sidebar-multi-level-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+<button data-drawer-target="sidebar-multi-level-sidebar" data-drawer-toggle="sidebar-multi-level-sidebar" aria-controls="sidebar-multi-level-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
    <span class="sr-only">Open sidebar</span>
    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
    <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
    </svg>
 </button>
 <?php if($role_id == 1){ ?>
-<aside id="sidebar-multi-level-sidebar" class="bg-slate-700 absolute top-0 mt-20 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+<aside id="sidebar-multi-level-sidebar" class="bg-slate-700 absolute top-0 mt-20 left-0 z-40 w-64 h-screen transition-transform -translate-x-full lg:translate-x-0" aria-label="Sidebar">
    <div class="h-full px-3 py-4 overflow-y-auto bg-slate-700 dark:bg-gray-800">
       <ul class="space-y-2 font-medium">  
          <li>
@@ -35,7 +35,7 @@ $role_id = $_SESSION['role'];
             </button>
             <ul id="dropdown-example" class="hidden ms-3 py-2 space-y-2">
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400 sidebar-link">Add user</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400 sidebar-link" data-url="adduser.php">Add user</a>
                   </li>
                   <li>
                      <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400 sidebar-link">Delete user</a>
@@ -127,7 +127,7 @@ $role_id = $_SESSION['role'];
 </aside>
 <?php } ?>
 <?php if($role_id == 3){ ?>
-<aside id="sidebar-student" class="bg-slate-700 absolute top-0 mt-20 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+<aside id="sidebar-student" class="bg-slate-700 absolute top-0 mt-20 left-0 z-40 w-64 h-screen transition-transform -translate-x-full lg:translate-x-0" aria-label="Sidebar">
    <div class="h-full px-3 py-4 overflow-y-auto bg-slate-700 dark:bg-gray-800">
       <ul class="space-y-2 font-medium">  
          <li>
@@ -165,7 +165,7 @@ $role_id = $_SESSION['role'];
             </button>
             <ul id="dropdown-example5" class="hidden ms-3 py-2 space-y-2">
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400">Edit Profile</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400" data-url="updateprofile.php">Edit Profile</a>
                   </li>
             </ul>
          </li>
@@ -174,7 +174,7 @@ $role_id = $_SESSION['role'];
 </aside>
 <?php } ?>
 <?php if($role_id == 2){ ?>
-    <aside id="sidebar-faculty" class="bg-slate-700 absolute top-0 mt-20 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+    <aside id="sidebar-faculty" class="bg-slate-700 absolute top-0 mt-20 left-0 z-40 w-64 h-screen transition-transform -translate-x-full lg:translate-x-0" aria-label="Sidebar">
    <div class="h-full px-3 py-4 overflow-y-auto bg-slate-700 dark:bg-gray-800">
       <ul class="space-y-2 font-medium">  
          <li>

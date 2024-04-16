@@ -111,22 +111,20 @@
             text-decoration: none;
             color: #d2b01a;
         }
-
-        /* Adjustments for profile picture */
         .profile-picture-container {
-            width: 40px; /* Set the width */
-            height: 40px; /* Set the height */
-            border-radius: 50%; /* Make it round */
+            width: 40px; 
+            height: 40px;
+            border-radius: 50%; 
             overflow: hidden;
-            position: relative; /* Hide any overflow */
+            position: relative; 
         }
 
         .profile-picture-container img {
-            width: auto; /* Ensure the image width adjusts to maintain aspect ratio */
-    height: 100%; /* Make the image fill the container vertically */
-    position: absolute; /* Position the image absolutely within the container */
-    left: 50%; /* Move the image to the center horizontally */
-    transform: translateX(-50%)/* Cover the entire container */
+            width: auto;
+    height: 100%; 
+    position: absolute; 
+    left: 50%; 
+    transform: translateX(-50%)
         }
     </style>
 </head>

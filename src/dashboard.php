@@ -11,7 +11,7 @@ if(!isset($_SESSION['username'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
 </head>
-<body>
+<body class="">
     <header>
     <?php include('header.php'); ?>
     </header>
@@ -20,7 +20,7 @@ if(!isset($_SESSION['username'])){
             <?php include('sidebar.php'); ?>
         </aside>
         <main class="mt-4 flex-1 ms-4">
-            <div id="main-content"></div>
+            <div id="main-content" class=""></div>
         </main>
 
     </div>
