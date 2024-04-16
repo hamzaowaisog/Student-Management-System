@@ -3,25 +3,25 @@ session_start();
 if(!isset($_SESSION['username'])){
     header('Location: index.php');
 }
-include("config.php");
+include_once("config.php");
 
-// Pagination configuration
 $records_per_page = 10;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $offset = ($page - 1) * $records_per_page;
 
 // Query to fetch data with pagination
-$sql = "SELECT * FROM unconfirmed_signups LIMIT $offset, $records_per_page";
+$sql = "SELECT * FROM users LIMIT $offset, $records_per_page";
 $result = mysqli_query($link, $sql);
 
 // Query to count total number of records
-$total_records_query = "SELECT COUNT(*) AS total_records FROM unconfirmed_signups";
+$total_records_query = "SELECT COUNT(*) AS total_records FROM users";
 $total_records_result = mysqli_query($link, $total_records_query);
 $total_records_row = mysqli_fetch_assoc($total_records_result);
 $total_records = $total_records_row['total_records'];
 
 // Calculate total pages
 $total_pages = ceil($total_records / $records_per_page);
+
 ?>
 
 <!DOCTYPE html>
@@ -121,8 +121,8 @@ $total_pages = ceil($total_records / $records_per_page);
             <th>Username</th>
             <th>CNIC</th>
             <th>DOB</th>
-            <th>Status</th>
-            <th>Role Assign</th>
+            <th>Roll number</th>
+            <th>Role</th>
             <th>Action</th>
         </tr>
         <?php
@@ -133,30 +133,16 @@ $total_pages = ceil($total_records / $records_per_page);
             echo "<td>" . $row['username'] . "</td>";
             echo "<td>" . $row['cnic_number'] . "</td>";
             echo "<td>" . $row['dob'] . "</td>";
-            echo "<td>" . $row['confirmation_status'] . "</td>";
-            if($row['confirmation_status'] == 'pending'){
-                echo "<td class='role-dropdown'>";
-                echo "<select name='role' id='roleSelect".$row['signup_id']."'>";
-                echo "<option value='faculty'>Faculty</option>";
-                echo "<option value='admin'>Admin</option>";
-                echo "<option value='user'>Student</option>";
-                echo "</select>";
+            echo "<td>" . $row['roll_number'] . "</td>";
+            if($row['role_id'] == 1){
+                echo "<td>Admin</td>";
+            } else if($row['role_id'] == 2){
+                echo "<td>Faculty</td>";
             } else {
-                echo "<td class='role-dropdown'>";
-                echo "<select name='role' disabled>";
-                echo "<option value='faculty'>Faculty</option>";
-                echo "<option value='admin'>Admin</option>";
-                echo "<option value='user'>Student</option>";
-                echo "</select>";
+                echo "<td>Student</td>";
             }
-            echo "</td>";
             echo "<td class='action-links'>";
-            if($row['confirmation_status'] == 'pending'){
-                echo "<a href='#' onclick='confirmUser(".$row['signup_id'].")'>Confirm</a>";
-                echo "<a href='#' onclick='rejectUser(".$row['signup_id'].")'>Reject</a>";
-            } else {
-                echo "No Action";
-            }
+            echo "<a href='#' onclick='deleteUser(".$row['user_id'].")'>Delete</a>";
             echo "</td>";
             echo "</tr>";
         }
@@ -181,7 +167,7 @@ $total_pages = ceil($total_records / $records_per_page);
     <script>
         function loadPage(page) {
             $.ajax({
-                url: 'adduser.php?page='+page,
+                url: 'delete_user.php?page='+page,
                 type: 'GET',
                 data: {page: page},
                 success: function(response) {
@@ -190,26 +176,11 @@ $total_pages = ceil($total_records / $records_per_page);
             });
         }
 
-        function confirmUser(signupid){
-            var selectedRoele = document.getElementById('roleSelect'+signupid).value;
-
+        function deleteUser(userid){
             $.ajax({
-                url:"Confirm_user.php",
+                url:"deleteuser.php",
                 type:"POST",
-                data:{signup_id:signupid, role:selectedRoele},
-                success:function(response){
-                    alert(response);
-                    location.reload();
-                },
-
-            });
-
-        }
-        function rejectUser(signupid){
-            $.ajax({
-                url:"Reject_user.php",
-                type:"POST",
-                data:{signup_id:signupid},
+                data:{user_id:userid},
                 success:function(response){
                     alert(response);
                     location.reload();
@@ -222,4 +193,3 @@ $total_pages = ceil($total_records / $records_per_page);
     </script>
 </body>
 </html>
-

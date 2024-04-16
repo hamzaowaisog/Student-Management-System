@@ -38,10 +38,10 @@ $role_id = $_SESSION['role'];
                      <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400 sidebar-link" data-url="adduser.php">Add user</a>
                   </li>
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400 sidebar-link">Delete user</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400 sidebar-link" data-url="delete_user.php">Delete user</a>
                   </li>
                   <li>
-                    <a href="#"class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400 sidebar-link">View users</a>
+                    <a href="#"class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group text-white hover:bg-zinc-400 sidebar-link" data-url="viewuser.php">View users</a>
                   </li>
             </ul>
          </li>
