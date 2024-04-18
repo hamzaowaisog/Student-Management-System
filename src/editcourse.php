@@ -38,7 +38,7 @@ $total_pages = ceil($total_records / $records_per_page);
     .container {
         width: 100%;
         margin: 20px auto;
-        overflow-x: auto; /* Enable horizontal scrolling if necessary */
+        overflow-x: auto; 
     }
 
     table {
