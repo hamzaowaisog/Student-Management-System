@@ -2,7 +2,15 @@
 if(!isset($_SESSION['username'])){
     header('Location: index.php');
 }
-
+include_once('config.php');
+$user_id = $_SESSION['id'];
+$sql = "SELECT * FROM users WHERE user_id = '$user_id'";
+$result = mysqli_query($link, $sql);
+if($result->num_rows>0){
+    while($rows=$result->fetch_assoc()){
+        $profile = base64_encode($rows['profile_picture']);
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,8 +42,8 @@ if(!isset($_SESSION['username'])){
         }
 
         .profile-info img {
-            width: 40px;
-            height: 40px;
+            width: 8rem;
+            height: 8rem;
             border-radius: 50%;
             margin-right: 10px;
         }

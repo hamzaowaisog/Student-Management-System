@@ -24,6 +24,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 $_SESSION['fullname']= $rows['fullname'];
                 $_SESSION['id'] = $rows['user_id'];
                 $_SESSION['role'] = $rows['role_id'];
+                $_SESSION['profile'] = $rows['profile_picture'];
                 $response = [
                   'success' => true,
                 ];
