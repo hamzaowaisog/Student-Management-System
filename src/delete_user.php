@@ -3,6 +3,11 @@ session_start();
 if(!isset($_SESSION['username'])){
     header('Location: index.php');
 }
+if($_SESSION['role_id'] != 1){
+    $_SESSION['role_id']=0;
+    header('Location: dashboard.php');
+
+}
 include_once("config.php");
 
 $records_per_page = 10;
@@ -32,7 +37,6 @@ $total_pages = ceil($total_records / $records_per_page);
     <title>Unconfirmed Signups</title>
     <style>
     body {
-        font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
         background-color: #f2f2f2;

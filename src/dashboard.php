@@ -10,14 +10,31 @@ if(!isset($_SESSION['username'])){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link href="output.css" rel="stylesheet">
+    <style>
+           body {
+        margin: 0;
+        padding: 0;
+        background-color: #f2f2f2;
+    }
+    </style>
 </head>
-<body class="">
+<body>
     <header>
-    <?php include('header.php'); ?>
+    <?php
+            if($_SESSION['role_id'] != 0){
+                include('header.php');
+            }
+            ?>
     </header>
     <div class="flex flex-wrap">
         <aside class="w-64">
-            <?php include('sidebar.php'); ?>
+
+            <?php
+            if($_SESSION['role_id'] != 0){
+                include('sidebar.php');
+            }
+            ?>
         </aside>
         <main class="mt-4 flex-1 ms-4">
             <div id="main-content" class=""></div>
@@ -40,6 +57,22 @@ if(!isset($_SESSION['username'])){
                 console.error('AJAX error:', status, error);
             }
         });
+    });
+
+    $('.header-link').click(function(event1){
+        event1.preventDefault();
+        var url = $(this).data('url');
+        $.ajax({
+            url : url,
+            method: 'GET',
+            success:function(response){
+                $('#main-content').html(response);
+            },
+            error: function(xhr , status , error){
+                console.error('AJAX error:', status,error);
+            }
+        });
+        
     });
 });
     </script>

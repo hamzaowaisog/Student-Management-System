@@ -3,7 +3,11 @@ session_start();
 if(!isset($_SESSION['username'])){
     header('Location: index.php');
 }       
+if($_SESSION['role_id'] != 1){
+    $_SESSION['role_id']=0;
+    header('Location: dashboard.php');
 
+}
 include_once("config.php");
 $sql = "Select user_id,fullname from users where role_id = 2";
 $result1 = mysqli_query($link, $sql);
@@ -17,8 +21,15 @@ $result2 = mysqli_query($link, $sql1);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="output.css" rel="stylesheet">
+    <style>
+        body {
+        margin: 0;
+        padding: 0;
+        background-color: #f2f2f2;
+    }
+    </style>
 </head>
-<body class="bg-gray-100">
+<body>
     <div class="container mx-auto mt-10">
         <div class="max-w-md mx-auto bg-slate-200 p-8 rounded shadow-md">
             <h2 class="text-2xl font-bold mb-6">Assign Course</h2>

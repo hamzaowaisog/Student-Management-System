@@ -1,3 +1,9 @@
+<?php
+if(!isset($_SESSION['username'])){
+    header('Location: index.php');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -137,8 +143,8 @@
                     <span class="span">Hello, </span><?php echo $_SESSION['fullname']; ?>
                     <div class="dropdown-menu text-center  ">
                         <ul>
-                            <li><a href="profile.php">Profile</a></li>
-                            <li><a href="change_password.php">Change Password</a></li>
+                            <li><a href="#" class="header-link" data-url="profile.php">Profile</a></li>
+                            <li><a href="#" class="header-link" data-url="change_password.php">Change Password</a></li>
                             <li>
                                 <form action="logout.php">
                                     <button class="m-auto btn rounded-pill text-center d-flex justify-content-center">Log Out</button></li>

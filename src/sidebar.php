@@ -3,7 +3,9 @@
 if(!isset($_SESSION['username'])){
     header('location:login.php');
 }
+
 $role_id = $_SESSION['role'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

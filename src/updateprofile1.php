@@ -6,7 +6,6 @@ if(!isset($_SESSION['username'])){
 }
 $user_id = $_SESSION['id'];
 $username = $_POST['username'];
-$password = $_POST['password'];
 include('config.php');
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -14,9 +13,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     if(empty($_POST['username'])){
         $errors['username'] = 'Username is required';
-    }
-    if(empty($_POST['password'])){
-        $errors['password'] = 'Password is required';
     }
     if(empty($_POST['fullname'])){
         $errors['fullname'] = 'Fullname is required';
@@ -33,7 +29,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($_POST['cnic'])){
         $errors['cnic'] = 'CNIC is required';
     }
-    if(empty($_FILES['picture'])){
+    if(empty($_FILES['picture']['name'])){
         $errors['picture'] = 'Profile Picture is required';
     }
 
@@ -44,15 +40,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $fname = $_POST['fname'];
         $cnic = $_POST['cnic'];
         $username = $_POST['username'];
-        $password = $_POST['password'];
         $picture = $_FILES['picture'];
         $date = date('Y-m-d H:i:s');
         if($picture['error'] == UPLOAD_ERR_OK){
             $imgdata = file_get_contents($picture['tmp_name']);
             $imgdata = mysqli_real_escape_string($link,$imgdata);
-            $sql = "UPDATE `users` SET `fullname`='$fullname',`email`='$email',`username`='$username',`password`='$password',`dob`='$dob',`father_or_husband_name`='$fname',`cnic_number`='$cnic',`profile_picture`='$imgdata' WHERE user_id = $user_id";
+            $sql = "UPDATE `users` SET `fullname`='$fullname',`email`='$email',`username`='$username',`dob`='$dob',`father_or_husband_name`='$fname',`cnic_number`='$cnic',`profile_picture`='$imgdata' WHERE user_id = $user_id";
             if(mysqli_query($link,$sql)){
-                echo json_encode(['error' => false]);
+                $_SESSION['fullname'] = $fullname;
+                echo json_encode(['error' => false , 'message' => 'Profile Updated Successfully']);
+                
             } else{
                 echo json_encode(['error' => true, 'message' => 'Could not able to execute $sql. ' . mysqli_error($link)]);
             }

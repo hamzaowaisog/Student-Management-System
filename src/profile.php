@@ -31,15 +31,16 @@ if($result->num_rows>0){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+body {
+        margin: 0;
+        padding: 0;
+        background-color: #f2f2f2;
+    }
+    </style>
 </head>
-<body class="bg-gray-100">
-    <header>
-        <?php include('header.php'); ?>
-    </header>
+<body>
     <div class="container mx-auto py-10">
-        <aside>
-            <?php include('sidebar.php'); ?>
-        </aside>
         <main>
         <h1 class="text-3xl font-bold text-center mb-6">User Profile</h1>
         <div class="max-w-md mx-auto bg-white rounded-lg shadow-lg overflow-hidden">

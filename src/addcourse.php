@@ -2,6 +2,12 @@
 session_start();
 if(!isset($_SESSION['username'])){
     header('Location: index.php');
+    exit();
+}
+if($_SESSION['role_id'] != 1){
+    $_SESSION['role_id']=0;
+    header('Location: dashboard.php');
+
 }
 ?>
 
@@ -13,8 +19,15 @@ if(!isset($_SESSION['username'])){
     <title>Add Course</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link href="output.css" rel="stylesheet">
+    <style>
+        body {
+        margin: 0;
+        padding: 0;
+        background-color: #f2f2f2;
+    }
+    </style>
 </head>
-<body class="bg-gray-100">
+<body>
     <div class="container mx-auto mt-10">
         <div class="max-w-md mx-auto bg-slate-200 p-8 rounded shadow-md">
             <h2 class="text-2xl font-bold mb-6">Add Course</h2>
