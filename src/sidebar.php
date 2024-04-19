@@ -81,7 +81,7 @@ $role_id = $_SESSION['role'];
                      <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400" data-url="manage_schedule.php">Manage Schedule</a>
                   </li>
                   <li>
-                    <a href="#"class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400">Remove Course</a>
+                    <a href="#"class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400" data-url="deleteschedule.php">Remove Schedule</a>
                   </li>
             </ul>
          </li>
