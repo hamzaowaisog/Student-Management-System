@@ -9,21 +9,27 @@ if($_SESSION['role_id'] != 1){
     header('Location: dashboard.php');
 }
 include_once("config.php");
+
+$sql = "SELECT * from users where roll_number like '%t%'";
+$result = mysqli_query($link, $sql);
+$teachers = array();
+
+while($row = mysqli_fetch_assoc($result)){
+    $teachers[$row['user_id']] = $row['fullname'];
+}
 $records_per_page = 10;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $offset = ($page - 1) * $records_per_page;
 
-$sql = "SELECT * FROM instructor_schedule LIMIT $offset, $records_per_page";
+$sql = "SELECT * FROM grades LIMIT $offset, $records_per_page";
 $result = mysqli_query($link, $sql);
 
-$total_records_query = "SELECT COUNT(*) AS total_records FROM instructor_schedule";
+$total_records_query = "SELECT COUNT(*) AS total_records FROM grades";
 $total_records_result = mysqli_query($link, $total_records_query);
 $total_records_row = mysqli_fetch_assoc($total_records_result);
 $total_records = $total_records_row['total_records'];
 
 $total_pages = ceil($total_records / $records_per_page);
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -114,41 +120,33 @@ $total_pages = ceil($total_records / $records_per_page);
 </head>
 <body>
     <div class="container">
+        <div class="mb-4">
+        <form method="post">
+        <select id="teacher_name" class="mb-2">
+            <option value="">Select Teacher</option>
+            <?php foreach($teachers as $id => $name): ?>
+                <option value="<?php echo $id; ?>"><?php echo $name; ?></option>
+            <?php endforeach; ?>
+        </select>
+        </form>
+        <select id="course_name" class="d-none">
+        </select>
+        </div>
        <table>
+        <thead>
         <tr>
-            <th>Course Name</th>
-            <th>Teacher Name</th>
-            <th>Class Room</th>
-            <th>Start Time</th>
-            <th>End Time</th>
-            <th>Days</th>
-            <th>Action</th>
+            <th>Student Name</th>
+            <th>Roll Number</th>
+            <th>Marks Gain</th>
+            <th>Total Marks</th>
+            <th>Grade</th>
+            <th>Grade progress</th>
         </tr>
-        <?php
-        while($row = mysqli_fetch_array($result)) {
-            $sql1 = "Select course_name from courses where course_id = {$row['course_id']}";
-            $result1 = mysqli_query($link, $sql1);
-            $row1 = mysqli_fetch_array($result1);
-            $sql2 = "Select * from users where user_id = {$row['course_instructor_id']}";
-            $result2 = mysqli_query($link, $sql2);
-            $row2 = mysqli_fetch_array($result2);
-            echo "<form>";
-            echo "<tr>";
-            echo "<td><input type='text' class='course_name' name='course_name' value='" . $row1['course_name'] . "' disabled></td>";
-            echo "<input type='hidden' class='course_id' name='course_id' value='" . $row['course_id'] . "'>";
-            echo "<input type='hidden' class='teacher_id' name='teacher_id' value='". $row['course_instructor_id'] . "'>";
-            echo "<td><input type='text' class='teacher_name' name='teacher_name' value='". $row2['fullname'] . "' disabled></td>";
-            echo "<td><input type='text' class='class_room' name='class_room' value='". $row['class_room'] . "' disabled></td>";
-            echo "<td><input type='time' class='start_time' name='start_time' value='". $row['start_time'] . "' disabled></td>";
-            echo "<td><input type='time' class='end_time' name='end_time' value='". $row['end_time'] . "' disabled></td>";
-            echo "<td><input type='text' class='days' name='days' value='". $row['day_of_week'] . "' disabled></td>";
-            echo "<td class='action-links'>";
-            echo "<button type='button'class='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600' onclick='DeleteSchedule(this)' data-schedule-id='". $row['schedule_id']. "'>Delete</button>";
-            echo "</td>";
-            echo "</tr>";
-            echo "</form>";
-            }
-        ?>
+        </thead>
+        <tbody id="grades_table">
+
+        </tbody>
+        
        </table> 
 
        <div class="pagination">
@@ -169,7 +167,7 @@ $total_pages = ceil($total_records / $records_per_page);
     <script>
         function loadPage(page) {
             $.ajax({
-                url: 'manage_schedule.php?page='+page,
+                url: 'viewgradeadmin?page='+page,
                 type: 'GET',
                 data: {page: page},
                 success: function(response) {
@@ -178,34 +176,54 @@ $total_pages = ceil($total_records / $records_per_page);
             });
         }
 
-        function DeleteSchedule(button){
-            var schedule_id = $(button).data('schedule-id');
-            var row = $(button).closest('tr');
-            var schedule_id = $(button).data('schedule-id');
-            var course_name = row.find('.course_name').val();
-            var course_id = row.find('.course_id').val();
-            var teacher_id = row.find('.teacher_id').val();
-            var class_room = row.find('.class_room').val();
-            var start_time = row.find('.start_time').val();
-            var end_time = row.find('.end_time').val();
-            var days = row.find('.days').val();
+        $(document).ready(function(){
+            
+        function loadcoursesByteacher(teacherid){
             $.ajax({
-                url:'delete_schedule.php',
-                type:'POST',
-                data:{course_id:course_id,
-                        teacher_id:teacher_id,
-                        schedule_id:schedule_id
-                      },
-                success:function(response){
-                    alert(response);
-                    console.log(response);
-                    location.reload();
-                },
-
+                url: "loadcoursesbyteacher.php",
+                type: "POST",
+                data: {teacherid: teacherid},
+                success: function(response){
+                    $('#course_name').removeClass('d-none');
+                    $('#course_name').html(response);
+                }
             });
-            
-            
         }
-    </script>
+
+        $('#teacher_name').change(function(){
+            var selectedteacherid = $(this).val();
+            if(selectedteacherid != ''){
+                loadcoursesByteacher(selectedteacherid);
+            }
+            else{
+                $('#course_name').addClass('d-none');
+            }
+
+        });
+
+        function loadgradetablebyteacherandcoursename(teacherid,courseid){
+            $.ajax({
+                url: "loadgradetable.php",
+                type: "POST",
+                data: {teacherid: teacherid,
+                       courseid: courseid},
+                success: function(response){
+                    $('#grades_table').html(response);
+                }
+            });
+        }
+        $('#course_name').change(function(){
+        var teacherid = $('#teacher_name').val();
+        var courseid = $(this).val();
+        if(courseid != ''){
+            console.log(teacherid);
+            console.log(courseid);
+            loadgradetablebyteacherandcoursename(teacherid,courseid);
+        }
+    })
+    });
+
+    
+</script>
 </body>
 </html>

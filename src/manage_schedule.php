@@ -4,6 +4,10 @@ if(!isset($_SESSION['username'])){
     header('Location: index.php');
     exit();
 }
+if($_SESSION['role_id'] != 1){
+    $_SESSION['role_id']=0;
+    header('Location: dashboard.php');
+}
 include_once("config.php");
 
 $records_per_page = 10;

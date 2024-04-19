@@ -6,7 +6,6 @@ if(!isset($_SESSION['username'])){
 if($_SESSION['role_id'] != 1){
     $_SESSION['role_id']=0;
     header('Location: dashboard.php');
-
 }
 include_once("config.php");
 $sql = "Select user_id,fullname from users where role_id = 2";
