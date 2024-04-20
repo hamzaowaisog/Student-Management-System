@@ -129,7 +129,7 @@ $role_id = $_SESSION['role'];
 </aside>
 <?php } ?>
 <?php if($role_id == 3){ ?>
-<aside id="sidebar-student" class="bg-slate-700 absolute top-0 mt-20 left-0 z-40 w-64 h-screen transition-transform -translate-x-full lg:translate-x-0" aria-label="Sidebar">
+   <aside id="sidebar-multi-level-sidebar" class="bg-slate-700 absolute top-0 mt-20 left-0 z-40 w-64 h-screen transition-transform -translate-x-full lg:translate-x-0" aria-label="Sidebar">
    <div class="h-full px-3 py-4 overflow-y-auto bg-slate-700 dark:bg-gray-800">
       <ul class="space-y-2 font-medium">  
          <li>
@@ -176,7 +176,7 @@ $role_id = $_SESSION['role'];
 </aside>
 <?php } ?>
 <?php if($role_id == 2){ ?>
-    <aside id="sidebar-faculty" class="bg-slate-700 absolute top-0 mt-20 left-0 z-40 w-64 h-screen transition-transform -translate-x-full lg:translate-x-0" aria-label="Sidebar">
+   <aside id="sidebar-multi-level-sidebar" class="bg-slate-700 absolute top-0 mt-20 left-0 z-40 w-64 h-screen transition-transform -translate-x-full lg:translate-x-0" aria-label="Sidebar">
    <div class="h-full px-3 py-4 overflow-y-auto bg-slate-700 dark:bg-gray-800">
       <ul class="space-y-2 font-medium">  
          <li>
@@ -203,6 +203,9 @@ $role_id = $_SESSION['role'];
                   <li>
                      <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400">Grade Assignments</a>
                   </li>
+                  <li>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400">View Grades</a>
+                  </li>
             </ul>
          </li>
          <li>
@@ -214,7 +217,7 @@ $role_id = $_SESSION['role'];
             </button>
             <ul id="dropdown-faculty-3" class="hidden ms-3 py-2 space-y-2">
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400">View Student</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400" data-url="viewstudent.php">View Student</a>
                   </li>
             </ul>
          </li>
@@ -227,7 +230,7 @@ $role_id = $_SESSION['role'];
             </button>
             <ul id="dropdown-example5" class="hidden ms-3 py-2 space-y-2">
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400">Edit Profile</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400" data-url="updateprofile.php">Edit Profile</a>
                   </li>
             </ul>
          </li>

@@ -22,7 +22,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $page = isset($_POST['page']) ? $_POST['page'] : 1;
     $offset = ($page - 1) * $records_per_page;
 
-    $total_records_query = "SELECT COUNT(*) AS total_records FROM grades where course_id='$course_id' group by user_id, course_id";
+    $total_records_query = "SELECT COUNT(*) AS total_records FROM grades where course_id='$course_id' group by course_id";
     $total_records_result = mysqli_query($link, $total_records_query);
     $total_records_row = mysqli_fetch_assoc($total_records_result);
     $total_records = $total_records_row['total_records'];

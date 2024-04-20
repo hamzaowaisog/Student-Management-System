@@ -141,31 +141,6 @@ while($row = mysqli_fetch_assoc($result)){
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        $(document).ready(function(){
-            
-        function loadcoursesByteacher(teacherid){
-            $.ajax({
-                url: "loadcoursesbyteacher.php",
-                type: "POST",
-                data: {teacherid: teacherid},
-                success: function(response){
-                    $('#course_name').removeClass('d-none');
-                    $('#course_name').html(response);
-                }
-            });
-        }
-
-        $('#teacher_name').change(function(){
-            var selectedteacherid = $(this).val();
-            if(selectedteacherid != ''){
-                loadcoursesByteacher(selectedteacherid);
-            }
-            else{
-                $('#course_name').addClass('d-none');
-            }
-
-        });
-
         function loadattendance(teacherid, courseid, page) {
         $.ajax({
             url: "loadattendadmin.php",
@@ -182,6 +157,33 @@ while($row = mysqli_fetch_assoc($result)){
             }
         });
         }
+
+        $(document).ready(function(){
+            
+        function loadcoursesByteacher(teacherid){
+            $.ajax({
+                url: "loadcoursesbyteacher.php",
+                type: "POST",
+                data: {teacherid: teacherid},
+                success: function(response){
+                    $('#course_name').removeClass('d-none');
+                    $('#course_name').html(response);
+                }
+            });
+        }
+
+        $('#teacher_name').change(function(){
+            $('#grades_table').html("");
+            $('.pagination').html("");
+            var selectedteacherid = $(this).val();
+            if(selectedteacherid != ''){
+                loadcoursesByteacher(selectedteacherid);
+            }
+            else{
+                $('#course_name').addClass('d-none');
+            }
+
+        });
 
         $('#course_name').change(function(){
         var teacherid = $('#teacher_name').val();

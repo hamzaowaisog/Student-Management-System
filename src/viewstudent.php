@@ -4,18 +4,23 @@ if(!isset($_SESSION['username'])){
     header('Location: index.php');
     exit();
 }
-if($_SESSION['role_id'] != 1){
+if($_SESSION['role_id'] != 2){
     $_SESSION['role_id']=0;
     header('Location: dashboard.php');
 }
 include_once("config.php");
 
-$sql = "SELECT * from users where roll_number like '%t%'";
+$courses = array();
+$user_id = $_SESSION['id'];
+$sql = "SELECT course_id from course_instructors where user_id = '$user_id'";
 $result = mysqli_query($link, $sql);
-$teachers = array();
-
 while($row = mysqli_fetch_assoc($result)){
-    $teachers[$row['user_id']] = $row['fullname'];
+    $course_id = $row['course_id'];
+    $sql2 = "SELECT * from courses where course_id = '$course_id'";
+    $result2 = mysqli_query($link, $sql2);
+    while($row2 = mysqli_fetch_assoc($result2)){
+        $courses[$row2['course_id']] = $row2['course_name'];
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -109,28 +114,22 @@ while($row = mysqli_fetch_assoc($result)){
     <div class="container">
         <div class="mb-4">
         <form method="post">
-        <select id="teacher_name" class="mb-2">
-            <option value="">Select Teacher</option>
-            <?php foreach($teachers as $id => $name): ?>
+        <select id="course_name" class="mb-2">
+            <option value="">Select Course</option>
+            <?php foreach($courses as $id => $name): ?>
                 <option value="<?php echo $id; ?>"><?php echo $name; ?></option>
             <?php endforeach; ?>
         </select>
         </form>
-        <select id="course_name" class="d-none">
-        </select>
         </div>
        <table>
         <thead>
         <tr>
             <th>Student Name</th>
             <th>Roll Number</th>
-            <th>Marks Gain</th>
-            <th>Total Marks</th>
-            <th>Grade</th>
-            <th>Grade progress</th>
         </tr>
         </thead>
-        <tbody id="grades_table">
+        <tbody id="student_table">
 
         </tbody>
         
@@ -142,67 +141,39 @@ while($row = mysqli_fetch_assoc($result)){
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-            function loadgradetablebyteacherandcoursename(teacherid, courseid, page) {
-    console.log('Function called with parameters:', teacherid, courseid, page);
+        function loadstudent(courseid, page) {
     $.ajax({
-        url: "loadgradetable.php",
+        url: "viewstudentfaculty.php",
         type: "POST",
         data: {
-            teacherid: teacherid,
             courseid: courseid,
             page: page
         },
         dataType: 'JSON',
         success: function(response) {
-            $('#grades_table').html(response.grade_data);
+            $('#student_table').html(response.grade_data);
             $('.pagination').html(response.pagination);
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr);
         }
     });
 }
         $(document).ready(function(){
-            
-        function loadcoursesByteacher(teacherid){
-            $.ajax({
-                url: "loadcoursesbyteacher.php",
-                type: "POST",
-                data: {teacherid: teacherid},
-                success: function(response){
-                    $('#course_name').removeClass('d-none');
-                    $('#course_name').html(response);
-                }
-            });
-        }
-
-        $('#teacher_name').change(function(){
-            $('#grades_table').html("");
-        $('.pagination').html("");
-            var selectedteacherid = $(this).val();
-            if(selectedteacherid != ''){
-                loadcoursesByteacher(selectedteacherid);
-            }
-            else{
-                $('#course_name').addClass('d-none');
-            }
-
-        });
-
         $('#course_name').change(function(){
-        var teacherid = $('#teacher_name').val();
-        var courseid = $(this).val();
-        $('#grades_table').html("");
+        var courseid = $('#course_name').val();
+        $('#student_table').html("");
         $('.pagination').html("");
         if(courseid != ''){
-            console.log(teacherid);
             console.log(courseid);
-            loadgradetablebyteacherandcoursename(teacherid,courseid,1);
+            loadstudent(courseid,1);
         }
     });
     $('.pagination').on('click', 'a', function(e) {
         e.preventDefault();
-        var teacherid = $('#teacher_name').val();
         var courseid = $('#course_name').val();
         var page = $(this).text();
-        loadgradetablebyteacherandcoursename(teacherid, courseid, page); 
+        loadstudent(courseid, page); 
     });
 
     });
