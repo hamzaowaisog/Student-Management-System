@@ -124,10 +124,9 @@ while($row = mysqli_fetch_assoc($result)){
         <tr>
             <th>Student Name</th>
             <th>Roll Number</th>
-            <th>Marks Gain</th>
-            <th>Total Marks</th>
-            <th>Grade</th>
-            <th>Grade progress</th>
+            <th>Total Classes</th>
+            <th>Total Present</th>
+            <th>Attendance Progress</th>
         </tr>
         </thead>
         <tbody id="grades_table">
@@ -167,23 +166,22 @@ while($row = mysqli_fetch_assoc($result)){
 
         });
 
-        function loadgradetablebyteacherandcoursename(teacherid, courseid, page) {
-    console.log('Function called with parameters:', teacherid, courseid, page);
-    $.ajax({
-        url: "loadgradetable.php",
-        type: "POST",
-        data: {
-            teacherid: teacherid,
-            courseid: courseid,
-            page: page
-        },
-        dataType: 'JSON',
-        success: function(response) {
-            $('#grades_table').html(response.grade_data);
-            $('.pagination').html(response.pagination);
+        function loadattendance(teacherid, courseid, page) {
+        $.ajax({
+            url: "loadattendadmin.php",
+            type: "POST",
+            data: {
+                teacherid: teacherid,
+                courseid: courseid,
+                page: page
+            },
+            dataType: 'JSON',
+            success: function(response) {
+                $('#grades_table').html(response.grade_data);
+                $('.pagination').html(response.pagination);
+            }
+        });
         }
-    });
-}
 
         $('#course_name').change(function(){
         var teacherid = $('#teacher_name').val();
@@ -193,7 +191,7 @@ while($row = mysqli_fetch_assoc($result)){
         if(courseid != ''){
             console.log(teacherid);
             console.log(courseid);
-            loadgradetablebyteacherandcoursename(teacherid,courseid,1);
+            loadattendance(teacherid,courseid,1);
         }
     });
     $('.pagination').on('click', 'a', function(e) {
@@ -201,7 +199,7 @@ while($row = mysqli_fetch_assoc($result)){
         var teacherid = $('#teacher_name').val();
         var courseid = $('#course_name').val();
         var page = $(this).text();
-        loadgradetablebyteacherandcoursename(teacherid, courseid, page); 
+        loadattendance(teacherid, courseid, page); 
     });
 
     });
