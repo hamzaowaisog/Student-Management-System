@@ -22,7 +22,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $page = isset($_POST['page']) ? $_POST['page'] : 1;
     $offset = ($page - 1) * $records_per_page;
 
-    $total_records_query = "SELECT COUNT(*) AS total_records FROM attendance where course_id='$course_id' group by user_id, course_id";
+    $total_records_query = "SELECT COUNT(*) AS total_records FROM attendance where course_id='$course_id' and teacher_id = '$teacher_id' group by user_id, course_id,teacher_id";
     $total_records_result = mysqli_query($link, $total_records_query);
     $total_records_row = mysqli_fetch_assoc($total_records_result);
     $total_records = $total_records_row['total_records'];
@@ -30,8 +30,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $total_pages = ceil($total_records / $records_per_page);
     $grade_data = '';
     $sql = "SELECT user_id,  SUM(CASE WHEN status = 'Present' THEN 1 ELSE 0 END) AS session_attend, count(distinct Date(session_date)) AS total_session 
-    FROM attendance where course_id = '$course_id'
-    GROUP BY user_id, course_id LIMIT $offset, $records_per_page";
+    FROM attendance where course_id = '$course_id' and teacher_id = '$teacher_id'
+    GROUP BY user_id, course_id , teacher_id LIMIT $offset, $records_per_page";
     $result = mysqli_query($link, $sql);
     while($row = mysqli_fetch_assoc($result)){
         $sql2 = "SELECT * FROM users WHERE user_id = $row[user_id]";

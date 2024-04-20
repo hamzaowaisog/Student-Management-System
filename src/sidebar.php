@@ -204,7 +204,7 @@ $role_id = $_SESSION['role'];
                      <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400">Grade Assignments</a>
                   </li>
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400">View Grades</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400" data-url="viewgradesfaculty.php">View Grades</a>
                   </li>
             </ul>
          </li>

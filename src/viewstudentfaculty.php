@@ -14,17 +14,18 @@ include_once("config.php");
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $course_id = $_POST['courseid'];
-    $records_per_page = 1;
+    $teacher_id = $_SESSION['id'];
+    $records_per_page = 10;
     $page = isset($_POST['page']) ? $_POST['page'] : 1;
     $offset = ($page - 1) * $records_per_page;
 
-    $total_records_query = "SELECT COUNT(*) AS total_records FROM course_enrollment where course_id='$course_id'";
+    $total_records_query = "SELECT COUNT(*) AS total_records FROM course_enrollment where course_id='$course_id' and teacher_id = '$teacher_id' ";
     $total_records_result = mysqli_query($link, $total_records_query);
     $total_records_row = mysqli_fetch_assoc($total_records_result);
     $total_records = $total_records_row['total_records'];
 
     $total_pages = ceil($total_records / $records_per_page);
-    $sql = "SELECT * FROM course_enrollment where course_id = '$course_id' LIMIT $offset, $records_per_page";
+    $sql = "SELECT * FROM course_enrollment where course_id = '$course_id' and teacher_id = '$teacher_id' LIMIT $offset, $records_per_page";
     $result = mysqli_query($link, $sql);
     $grade_data = '';
     while($row = mysqli_fetch_assoc($result)){
