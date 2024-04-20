@@ -1,13 +1,13 @@
 <?php
 session_start();
 if(!isset($_SESSION['username'])){
-    header('Location: index.php');
-    exit();
+    header('location:index.php');
 }
-if($_SESSION['role_id'] != 2){
-    $_SESSION['role_id']=0;
-    header('Location: dashboard.php');
+if($_SESSION['role']!=2){
+    $_SESSION['role']=0;
+    header('location:dashboard.php');
 }
+
 include_once("config.php");
 
 $courses = array();
@@ -22,7 +22,10 @@ while($row = mysqli_fetch_assoc($result)){
         $courses[$row2['course_id']] = $row2['course_name'];
     }
 }
+
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -127,9 +130,11 @@ while($row = mysqli_fetch_assoc($result)){
         <tr>
             <th>Student Name</th>
             <th>Roll Number</th>
+            <th>Status</th>
+            <th>Session Date</th>
         </tr>
         </thead>
-        <tbody id="student_table">
+        <tbody id="attendance_table">
 
         </tbody>
         
@@ -143,7 +148,7 @@ while($row = mysqli_fetch_assoc($result)){
     <script>
         function loadstudent(courseid, page) {
     $.ajax({
-        url: "viewstudentfaculty.php",
+        url: "viewstudentattendance.php",
         type: "POST",
         data: {
             courseid: courseid,
@@ -151,7 +156,7 @@ while($row = mysqli_fetch_assoc($result)){
         },
         dataType: 'JSON',
         success: function(response) {
-            $('#student_table').html(response.grade_data);
+            $('#attendance_table').html(response.grade_data);
             $('.pagination').html(response.pagination);
         },
         error: function(xhr, status, error) {
@@ -159,10 +164,26 @@ while($row = mysqli_fetch_assoc($result)){
         }
     });
 }
+    function takeattendance(status, student_name, roll_number, date, course_id){
+        $.ajax({
+            url: "takeattendance.php",
+            type: "POST",
+            data: {
+                status: status,
+                student_name :student_name,
+                roll_number: roll_number,
+                date: date,
+                course_id: course_id
+            },
+            success: function(response){
+                alert(response);
+            }
+        })
+    }
         $(document).ready(function(){
         $('#course_name').change(function(){
         var courseid = $('#course_name').val();
-        $('#student_table').html("");
+        $('#attendance_table').html("");
         $('.pagination').html("");
         if(courseid != ''){
             console.log(courseid);
@@ -176,7 +197,19 @@ while($row = mysqli_fetch_assoc($result)){
         loadstudent(courseid, page); 
     });
 
+    $('#attendance_table').on('change', '#attendance', function(event){
+        event.preventDefault();
+        var status = $(this).val();
+        var student_name = $(this).closest('tr').find('td:eq(0)').text();
+        var roll_number = $(this).closest('tr').find('td:eq(1)').text();
+        var date = $(this).closest('tr').find('td:eq(3)').text();
+        var course_id = $('#course_name').val();
+        var element = document.getElementById("attendance");
+        element.disabled = true;
+        takeattendance(status, student_name, roll_number, date, course_id);
+
     });
+});
 
     
 </script>

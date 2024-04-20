@@ -141,6 +141,7 @@ if($result->num_rows>0){
     transform: translateX(-50%)
         }
     </style>
+    <link href="output.css" rel="stylesheet">
 </head>
 <body>
     <div class="container-fluid p-0 ">

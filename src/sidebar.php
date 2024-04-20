@@ -13,7 +13,7 @@ $role_id = $_SESSION['role'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" /> -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
     <link href="output.css"rel="stylesheet" />
 </head>
 <body>
@@ -188,7 +188,7 @@ $role_id = $_SESSION['role'];
             </button>
             <ul id="dropdown-faculty-1" class="hidden ms-3 py-2 space-y-2">
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400">Take Attendance</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400" data-url="attendancefaculty.php">Take Attendance</a>
                   </li>
             </ul>
          </li>

@@ -1,20 +1,17 @@
 <?php
 session_start();
-
 if(!isset($_SESSION['username'])){
-    header('Location: index.php');
-    exit();
+    header('location:index.php');
 }
-if($_SESSION['role_id'] != 2){
-    $_SESSION['role_id']=0;
-    header('Location: dashboard.php');
+if($_SESSION['role']!=2){
+    $_SESSION['role']=0;
+    header('location:dashboard.php');
 }
-
 include_once("config.php");
 
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $course_id = $_POST['courseid'];
-    $records_per_page = 1;
+    $records_per_page = 10;
     $page = isset($_POST['page']) ? $_POST['page'] : 1;
     $offset = ($page - 1) * $records_per_page;
 
@@ -33,11 +30,17 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         while($row2 = mysqli_fetch_assoc($result2)){
                 $student_name = $row2['fullname'];
                 $roll_number = $row2['roll_number'];
-               
+                $date = date('Y-m-d');
     
                 $grade_data .= "<tr>";
                 $grade_data .= "<td>$student_name</td>";
                 $grade_data .= "<td>$roll_number</td>";
+                $grade_data .= "<td><select id='attendance'>";
+                $grade_data .= "<option value=''>Select</option>";
+                $grade_data .= "<option value='Present'>Present</option>";
+                $grade_data .= "<option value='Absent'>Absent</option>";
+                $grade_data .=  "</select></td>";
+                $grade_data .=  "<td>$date</td>";
                 $grade_data .= "</tr>";
         }
     }
@@ -57,4 +60,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     echo json_encode(array('grade_data' => $grade_data, 'pagination' => $pagination));
 }
+
+
 ?>
