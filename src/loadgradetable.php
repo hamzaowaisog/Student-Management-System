@@ -17,9 +17,21 @@ $marks_gained = 0;
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $course_id = $_POST['courseid'];
     $teacher_id = $_POST['teacherid'];
+    
+    $records_per_page = 10;
+    $page = isset($_POST['page']) ? $_POST['page'] : 1;
+    $offset = ($page - 1) * $records_per_page;
+
+    $total_records_query = "SELECT COUNT(*) AS total_records FROM grades where course_id='$course_id' group by user_id, course_id";
+    $total_records_result = mysqli_query($link, $total_records_query);
+    $total_records_row = mysqli_fetch_assoc($total_records_result);
+    $total_records = $total_records_row['total_records'];
+
+    $total_pages = ceil($total_records / $records_per_page);
+    $grade_data = '';
     $sql = "SELECT user_id,SUM(marks) AS total_marks_gained, SUM(Total_marks) AS total_marks 
     FROM grades where course_id = '$course_id'
-    GROUP BY user_id, course_id";
+    GROUP BY user_id, course_id LIMIT $offset, $records_per_page";
     $result = mysqli_query($link, $sql);
     while($row = mysqli_fetch_assoc($result)){
         $sql2 = "SELECT * FROM users WHERE user_id = $row[user_id]";
@@ -44,19 +56,33 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 } else {
                 $grade = 'F';
                 }
+
+
         
-                echo "<tr>";
-                echo "<td>$student_name</td>";
-                echo "<td>$roll_number</td>";
-                echo "<td>$marks_gained</td>";
-                echo "<td>$total_marks</td>";
-                echo "<td>$grade</td>";
-                echo "<td><div class='progress-bar' style='width: $percentage%;'>$percentage%</div></td>";
-                echo "</tr>";
+                $grade_data .= "<tr>";
+                $grade_data .= "<td>$student_name</td>";
+                $grade_data .= "<td>$roll_number</td>";
+                $grade_data .= "<td>$marks_gained</td>";
+                $grade_data .= "<td>$total_marks</td>";
+                $grade_data .= "<td>$grade</td>";
+                $grade_data .= "<td><div class='progress-bar' style='width: $percentage%;'>$percentage%</div></td>";
+                $grade_data .= "</tr>";
         }
-       
-
     }
-}
+    
+    $pagination = '';
+    if ($page > 1) {
+        $pagination .= '<a href="#" onclick="loadgradetablebyteacherandcoursename(' . $teacher_id . ', ' . $course_id . ', ' . ($page - 1) . ')">Previous</a>';
+    }
+    for ($i = 1; $i <= $total_pages; $i++) {
+        $pagination .= '<a href="#" onclick="loadgradetablebyteacherandcoursename(' . $teacher_id . ', ' . $course_id . ', ' . $i . ')"';
+        if ($i == $page) $pagination .= 'class="active"';
+        $pagination .= '>' . $i . '</a>';
+    }
+    if ($page < $total_pages) {
+        $pagination .= '<a href="#" onclick="loadgradetablebyteacherandcoursename(' . $teacher_id . ', ' . $course_id . ', ' . ($page + 1) . ')">Next</a>';
+    }
 
+    echo json_encode(array('grade_data' => $grade_data, 'pagination' => $pagination));
+}
 ?>

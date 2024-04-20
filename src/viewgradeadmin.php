@@ -17,19 +17,6 @@ $teachers = array();
 while($row = mysqli_fetch_assoc($result)){
     $teachers[$row['user_id']] = $row['fullname'];
 }
-$records_per_page = 10;
-$page = isset($_GET['page']) ? $_GET['page'] : 1;
-$offset = ($page - 1) * $records_per_page;
-
-$sql = "SELECT * FROM grades LIMIT $offset, $records_per_page";
-$result = mysqli_query($link, $sql);
-
-$total_records_query = "SELECT COUNT(*) AS total_records FROM grades";
-$total_records_result = mysqli_query($link, $total_records_query);
-$total_records_row = mysqli_fetch_assoc($total_records_result);
-$total_records = $total_records_row['total_records'];
-
-$total_pages = ceil($total_records / $records_per_page);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -150,32 +137,11 @@ $total_pages = ceil($total_records / $records_per_page);
        </table> 
 
        <div class="pagination">
-           <?php if ($page > 1): ?>
-                <a href="#" onclick="loadPage(<?php echo $page - 1; ?>)">Previous</a>
-            <?php endif; ?>
-            
-            <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                <a href="#" onclick="loadPage(<?php echo $i; ?>)" <?php if ($i == $page) echo 'class="active"'; ?>><?php echo $i; ?></a>
-            <?php endfor; ?>
-            
-            <?php if ($page < $total_pages): ?>
-                <a href="#" onclick="loadPage(<?php echo $page + 1; ?>)">Next</a>
-            <?php endif; ?>
+          
        </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        function loadPage(page) {
-            $.ajax({
-                url: 'viewgradeadmin?page='+page,
-                type: 'GET',
-                data: {page: page},
-                success: function(response) {
-                    $('.container').html(response);
-                }
-            });
-        }
-
         $(document).ready(function(){
             
         function loadcoursesByteacher(teacherid){
@@ -201,26 +167,41 @@ $total_pages = ceil($total_records / $records_per_page);
 
         });
 
-        function loadgradetablebyteacherandcoursename(teacherid,courseid){
-            $.ajax({
-                url: "loadgradetable.php",
-                type: "POST",
-                data: {teacherid: teacherid,
-                       courseid: courseid},
-                success: function(response){
-                    $('#grades_table').html(response);
-                }
-            });
+        function loadgradetablebyteacherandcoursename(teacherid, courseid, page) {
+    console.log('Function called with parameters:', teacherid, courseid, page);
+    $.ajax({
+        url: "loadgradetable.php",
+        type: "POST",
+        data: {
+            teacherid: teacherid,
+            courseid: courseid,
+            page: page
+        },
+        dataType: 'JSON',
+        success: function(response) {
+            $('#grades_table').html(response.grade_data);
+            $('.pagination').html(response.pagination);
         }
+    });
+}
+
         $('#course_name').change(function(){
         var teacherid = $('#teacher_name').val();
         var courseid = $(this).val();
         if(courseid != ''){
             console.log(teacherid);
             console.log(courseid);
-            loadgradetablebyteacherandcoursename(teacherid,courseid);
+            loadgradetablebyteacherandcoursename(teacherid,courseid,1);
         }
-    })
+    });
+    $('.pagination').on('click', 'a', function(e) {
+        e.preventDefault();
+        var teacherid = $('#teacher_name').val();
+        var courseid = $('#course_name').val();
+        var page = $(this).text();
+        loadgradetablebyteacherandcoursename(teacherid, courseid, page); 
+    });
+
     });
 
     
