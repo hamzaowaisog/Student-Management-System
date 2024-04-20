@@ -5,6 +5,7 @@ if(!isset($_SESSION['username'])){
 }
 if($_SESSION['role_id'] != 1){
     $_SESSION['role_id']=0;
+    $_SESSION['role']=0;
     header('Location: dashboard.php');
 
 }
@@ -14,17 +15,14 @@ $records_per_page = 10;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $offset = ($page - 1) * $records_per_page;
 
-// Query to fetch data with pagination
 $sql = "SELECT * FROM users LIMIT $offset, $records_per_page";
 $result = mysqli_query($link, $sql);
 
-// Query to count total number of records
 $total_records_query = "SELECT COUNT(*) AS total_records FROM users";
 $total_records_result = mysqli_query($link, $total_records_query);
 $total_records_row = mysqli_fetch_assoc($total_records_result);
 $total_records = $total_records_row['total_records'];
 
-// Calculate total pages
 $total_pages = ceil($total_records / $records_per_page);
 
 ?>

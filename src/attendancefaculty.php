@@ -5,6 +5,7 @@ if(!isset($_SESSION['username'])){
 }
 if($_SESSION['role']!=2){
     $_SESSION['role']=0;
+    $_SESSION['role_id']=0;
     header('location:dashboard.php');
 }
 

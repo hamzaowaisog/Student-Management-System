@@ -201,7 +201,7 @@ $role_id = $_SESSION['role'];
             </button>
             <ul id="dropdown-faculty-2" class="hidden ms-3 py-2 space-y-2">
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400">Grade Assignments</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400" data-url="gradingfaculty.php">Grade Assignments</a>
                   </li>
                   <li>
                      <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400" data-url="viewgradesfaculty.php">View Grades</a>

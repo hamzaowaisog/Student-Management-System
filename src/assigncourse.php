@@ -5,6 +5,7 @@ if(!isset($_SESSION['username'])){
 }       
 if($_SESSION['role_id'] != 1){
     $_SESSION['role_id']=0;
+    $_SESSION['role']=0;
     header('Location: dashboard.php');
 }
 include_once("config.php");

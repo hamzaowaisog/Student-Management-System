@@ -36,11 +36,15 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $student_name = $row2['fullname'];
                 $roll_number = $row2['roll_number'];
                
-    
                 $grade_data .= "<tr>";
                 $grade_data .= "<td>$student_name</td>";
                 $grade_data .= "<td>$roll_number</td>";
+                $grade_data .= "<td><input type='text' id='type_".$row['user_id']."'></td>";
+                $grade_data .= "<td><input type='number' min='0' max='100' id='marks_".$row['user_id']."'></td>"; 
+                $grade_data .= "<td><input type='number' min='0' max='100' id='totalmarks_".$row['user_id']."'></td>"; 
+                $grade_data .= "<td><button class='bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600' onclick='savegrade(\"".$row['user_id']."\", \"$course_id\")' id='btn".$row['user_id']."'>Save</button></td>";
                 $grade_data .= "</tr>";
+                
         }
     }
     
