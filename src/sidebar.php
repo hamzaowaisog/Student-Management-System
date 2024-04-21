@@ -147,14 +147,14 @@ $role_id = $_SESSION['role'];
          </li>   
       <li>
             <button type="button" class="flex items-center w-full p-2 text-base transition duration-75 rounded-lg group text-xl hover:bg-zinc-400 text-white " aria-controls="dropdown-student-1" data-collapse-toggle="dropdown-student-1">
-                  <span class="flex-1 ms-2 text-left whitespace-nowrap">My Grades</span>
+                  <span class="flex-1 ms-2 text-left whitespace-nowrap">Grades</span>
                   <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
                   </svg>
             </button>
             <ul id="dropdown-student-1" class="hidden ms-3 py-2 space-y-2">
                   <li>
-                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400">View Grades</a>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400" data-url="viewgradesstd.php">View Grades</a>
                   </li>
             </ul>
          </li>
