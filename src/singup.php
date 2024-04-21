@@ -96,6 +96,7 @@
           $('#error-message').removeClass('d-none');
           $('#error-message').text(response.message);
         } else {
+          alert("you will able to login after admin approval");
           window.location.href = "index.php";
         }
       }
