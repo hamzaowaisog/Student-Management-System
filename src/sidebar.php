@@ -132,7 +132,20 @@ $role_id = $_SESSION['role'];
    <aside id="sidebar-multi-level-sidebar" class="bg-slate-700 absolute top-0 mt-20 left-0 z-40 w-64 h-screen transition-transform -translate-x-full lg:translate-x-0" aria-label="Sidebar">
    <div class="h-full px-3 py-4 overflow-y-auto bg-slate-700 dark:bg-gray-800">
       <ul class="space-y-2 font-medium">  
-         <li>
+      <li>
+            <button type="button" class="flex items-center w-full p-2 text-base transition duration-75 rounded-lg group text-xl hover:bg-zinc-400 text-white " aria-controls="dropdown-student-0" data-collapse-toggle="dropdown-student-0">
+                  <span class="flex-1 ms-2 text-left whitespace-nowrap">Registration</span>
+                  <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                  </svg>
+            </button>
+            <ul id="dropdown-student-0" class="hidden ms-3 py-2 space-y-2">
+                  <li>
+                     <a href="#" class="flex items-center w-full p-2 transition duration-75 rounded-lg pl-11 group sidebar-link text-white hover:bg-zinc-400" data-url="courseregistrationstd.php">Course Registration</a>
+                  </li>
+            </ul>
+         </li>   
+      <li>
             <button type="button" class="flex items-center w-full p-2 text-base transition duration-75 rounded-lg group text-xl hover:bg-zinc-400 text-white " aria-controls="dropdown-student-1" data-collapse-toggle="dropdown-student-1">
                   <span class="flex-1 ms-2 text-left whitespace-nowrap">My Grades</span>
                   <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">

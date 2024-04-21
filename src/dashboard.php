@@ -37,13 +37,25 @@ if(!isset($_SESSION['username'])){
             ?>
         </aside>
         <main class="mt-4 flex-1 ms-4">
-            <div id="main-content" class=""></div>
+            <div id="main-content" class="">
+                
+            </div>
         </main>
 
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
+            $.ajax({
+            url: 'profile.php',
+            method: 'GET',
+            success: function (response) {
+                $('#main-content').html(response);
+            },
+            error: function (xhr, status, error) {
+                console.error('AJAX error:', status, error);
+            }
+        });
     $('.sidebar-link').click(function(event) {
         event.preventDefault();
         var url = $(this).data('url');
