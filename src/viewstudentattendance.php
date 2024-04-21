@@ -37,7 +37,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                 $grade_data .= "<tr>";
                 $grade_data .= "<td>$student_name</td>";
                 $grade_data .= "<td>$roll_number</td>";
-                $grade_data .= "<td><select id='attendance'>";
+                $grade_data .= "<td><select class='attendance'>";
                 $grade_data .= "<option value=''>Select</option>";
                 $grade_data .= "<option value='Present'>Present</option>";
                 $grade_data .= "<option value='Absent'>Absent</option>";

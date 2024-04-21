@@ -128,7 +128,7 @@ while($row = mysqli_fetch_assoc($result)){
         <tr>
             <th>Work</th>
             <th>Marks Gain</th>
-            <th>Total Marks</th>>
+            <th>Total Marks</th>
         </tr>
         </thead>
         <tbody id="marks_table">
